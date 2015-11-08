@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		DA07C0F01BEEC8BC000D62EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA07C0EF1BEEC8BC000D62EF /* main.m */; };
 		DA07C0F31BEEC8BC000D62EF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA07C0F21BEEC8BC000D62EF /* AppDelegate.m */; };
-		DA07C0F61BEEC8BC000D62EF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA07C0F51BEEC8BC000D62EF /* ViewController.m */; };
 		DA07C0FB1BEEC8BD000D62EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA07C0FA1BEEC8BD000D62EF /* Images.xcassets */; };
 		DA07C0FE1BEEC8BD000D62EF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA07C0FC1BEEC8BD000D62EF /* LaunchScreen.xib */; };
 		DA07C10A1BEEC8BD000D62EF /* BlocBrowserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA07C1091BEEC8BD000D62EF /* BlocBrowserTests.m */; };
+		DA07C1141BEEEF4A000D62EF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA07C1131BEEEF4A000D62EF /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,12 +32,12 @@
 		DA07C0F11BEEC8BC000D62EF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DA07C0F21BEEC8BC000D62EF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DA07C0F41BEEC8BC000D62EF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		DA07C0F51BEEC8BC000D62EF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		DA07C0FA1BEEC8BD000D62EF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DA07C0FD1BEEC8BD000D62EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		DA07C1031BEEC8BD000D62EF /* BlocBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA07C1081BEEC8BD000D62EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA07C1091BEEC8BD000D62EF /* BlocBrowserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlocBrowserTests.m; sourceTree = "<group>"; };
+		DA07C1131BEEEF4A000D62EF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,7 @@
 				DA07C0F11BEEC8BC000D62EF /* AppDelegate.h */,
 				DA07C0F21BEEC8BC000D62EF /* AppDelegate.m */,
 				DA07C0F41BEEC8BC000D62EF /* ViewController.h */,
-				DA07C0F51BEEC8BC000D62EF /* ViewController.m */,
+				DA07C1131BEEEF4A000D62EF /* ViewController.m */,
 				DA07C0FA1BEEC8BD000D62EF /* Images.xcassets */,
 				DA07C0FC1BEEC8BD000D62EF /* LaunchScreen.xib */,
 				DA07C0ED1BEEC8BC000D62EF /* Supporting Files */,
@@ -215,7 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA07C0F61BEEC8BC000D62EF /* ViewController.m in Sources */,
+				DA07C1141BEEEF4A000D62EF /* ViewController.m in Sources */,
 				DA07C0F31BEEC8BC000D62EF /* AppDelegate.m in Sources */,
 				DA07C0F01BEEC8BC000D62EF /* main.m in Sources */,
 			);
@@ -406,6 +406,7 @@
 				DA07C10F1BEEC8BD000D62EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DA07C1101BEEC8BD000D62EF /* Build configuration list for PBXNativeTarget "BlocBrowserTests" */ = {
 			isa = XCConfigurationList;
@@ -414,6 +415,7 @@
 				DA07C1121BEEC8BD000D62EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
