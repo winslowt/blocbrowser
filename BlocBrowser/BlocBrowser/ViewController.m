@@ -59,7 +59,7 @@
     
     [self.reloadButton setTitle:NSLocalizedString(@"Refresh", @"Reload command") forState:UIControlStateNormal];
     [self.reloadButton addTarget:self.webView action:@selector(reload) forControlEvents:UIControlEventTouchUpInside];
-
+    
     
     for (UIView *viewToAdd in @[self.webView, self.textField, self.backButton, self.forwardButton, self.stopButton, self.reloadButton]) {
         [mainView addSubview:viewToAdd];
@@ -71,10 +71,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-      self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"Welcome!" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Bloc away" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {}];
+    
+    [alertController addAction:defaultAction];
+    
+    [self presentViewController:alertController animated:true completion:nil];
+    
+    
     
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -98,41 +109,49 @@
         thisButton.frame = CGRectMake(currentButtonX, CGRectGetMaxY(self.webView.frame), buttonWidth, itemHeight);
         currentButtonX += buttonWidth;
     }
-     #pragma mark - UITextFieldDelegate
+#pragma mark - UITextFieldDelegate
 }
-    - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-        [textField resignFirstResponder];
-        
-        NSString *URLString = textField.text;
-        
-        NSURL *URL = [NSURL URLWithString:URLString];
-        
-        if (!URL.scheme) {
-            // The user didn't type http: or https:
-            URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", URLString]];
-        }
-        if (!URL.scheme) {
-            
-            NSRange urlSpace = [URLString rangeOfString:@" "];
-            NSString *urlNoSpace = [URLString stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-            
-            if (urlSpace.location != NSNotFound) {
-                
-            URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", urlNoSpace]];
-        }
-        
-
-        }
-        if (URL) {
-            NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-            [self.webView loadRequest:request];
-        }
-        
-        return NO;
-         #pragma mark - WKNavigationDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
     
-
+    NSString *URLString = textField.text;
+    
+    NSURL *URL = [NSURL URLWithString:URLString];
+    
+    if([URLString rangeOfString:@""].location == NSNotFound) {
+        
+         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", URLString]];
     }
+    
+    if (!URL.scheme) {
+        // The user didn't type http: or https:
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", URLString]];
+    }
+    if (!URL.scheme) {
+        
+        NSRange urlSpace = [URLString rangeOfString:@" "];
+        NSString *urlNoSpace = [URLString stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        
+        
+        if (urlSpace.location != NSNotFound) {
+            
+            URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", urlNoSpace]];
+        
+            }
+    
+    }
+
+    if (URL) {
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        [self.webView loadRequest:request];
+        
+  
+    }
+
+  return NO;
+}
+#pragma mark - WKNavigationDelegate
+
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     [self updateButtonsAndTitle];
