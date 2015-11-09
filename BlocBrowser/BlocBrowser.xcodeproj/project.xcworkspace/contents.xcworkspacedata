@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../AwesomeFloatingToolbar.h">
-   </FileRef>
-   <FileRef
-      location = "group:../AwesomeFloatingToolbar.m">
-   </FileRef>
-   <FileRef
       location = "self:BlocBrowser.xcodeproj">
    </FileRef>
 </Workspace>
