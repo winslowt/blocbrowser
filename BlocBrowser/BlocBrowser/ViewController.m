@@ -17,6 +17,7 @@
 @property (nonatomic, strong) AwesomeFloatingToolbar *awesomeToolbar;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) UIAlertController *alertController;
+@property (nonatomic, strong) UIPinchGestureRecognizer *pinchRecognizer;
 
 #define kWebBrowserBackString NSLocalizedString(@"Back", @"Back command")
 #define kWebBrowserForwardString NSLocalizedString(@"Forward", @"Forward command")
@@ -112,26 +113,18 @@
     
     NSURL *URL = [NSURL URLWithString:URLString];
     
-    if([URLString rangeOfString:@""].location == NSNotFound) {
-        [textField resignFirstResponder];
-        URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", URLString]];
-    }
     
     if (!URL.scheme) {
         // The user didn't type http: or https:
         URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", URLString]];
     }
-
-    if (!URL.scheme) {
+    
+    NSRange urlSpace = [URLString rangeOfString:@" "];
+    NSString *urlNoSpace = [URLString stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    
+    if (urlSpace.location != NSNotFound) {
         
-        NSRange urlSpace = [URLString rangeOfString:@" "];
-        NSString *urlNoSpace = [URLString stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        
-        if (urlSpace.location != NSNotFound) {
-            
-            URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", urlNoSpace]];
-        }
-        
+        URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.google.com/search?q=%@", urlNoSpace]];
         
     }
     if (URL) {
@@ -193,18 +186,15 @@
 #pragma mark - AwesomeFloatingToolbarDelegate
 
 - (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didSelectButtonWithTitle:(NSString *)title {
+
     
-#define kWebBrowserBackString NSLocalizedString(@"Back", @"Back command")
-#define kWebBrowserForwardString NSLocalizedString(@"Forward", @"Forward command")
-#define kWebBrowserStopString NSLocalizedString(@"Stop", @"Stop command")
-#define kWebBrowserRefreshString NSLocalizedString(@"Refresh", @"Reload command")
-    if ([title isEqual:NSLocalizedString(@"Back", @"Back command")]) {
+    if ([title isEqual:kWebBrowserBackString]) {
         [self.webView goBack];
-    } else if ([title isEqual:NSLocalizedString(@"Forward", @"Forward command")]) {
+    } else if ([title isEqual:kWebBrowserForwardString]) {
         [self.webView goForward];
-    } else if ([title isEqual:NSLocalizedString(@"Stop", @"Stop command")]) {
+    } else if ([title isEqual:kWebBrowserStopString]) {
         [self.webView stopLoading];
-    } else if ([title isEqual:NSLocalizedString(@"Refresh", @"Reload command")]) {
+    } else if ([title isEqual:kWebBrowserRefreshString]) {
         [self.webView reload];
     }
 }
