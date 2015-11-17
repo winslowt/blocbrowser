@@ -17,7 +17,7 @@
 @property (nonatomic, strong) AwesomeFloatingToolbar *awesomeToolbar;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) UIAlertController *alertController;
-@property (nonatomic, strong) UIPinchGestureRecognizer *pinchRecognizer;
+
 
 #define kWebBrowserBackString NSLocalizedString(@"Back", @"Back command")
 #define kWebBrowserForwardString NSLocalizedString(@"Forward", @"Forward command")
@@ -37,6 +37,24 @@
     return YES;
     
     
+}
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset {
+    CGPoint startingPoint = toolbar.frame.origin;
+    CGPoint newPoint = CGPointMake(startingPoint.x + offset.x, startingPoint.y + offset.y);
+    
+    CGRect potentialNewFrame = CGRectMake(newPoint.x, newPoint.y, CGRectGetWidth(toolbar.frame), CGRectGetHeight(toolbar.frame));
+    
+    if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+        toolbar.frame = potentialNewFrame;
+    }
+}
+
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didPinchWithScale:(CGFloat)scale {
+    CGRect potentialNewFrame = CGRectMake(toolbar.frame.origin.x, toolbar.frame.origin.y, toolbar.frame.size.width * scale, toolbar.frame.size.height * scale);
+    
+    if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+        toolbar.frame = potentialNewFrame;
+    }
 }
 
 
@@ -87,6 +105,9 @@
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
     
+
+       self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 - (void) viewWillLayoutSubviews {
@@ -102,7 +123,7 @@
     self.textField.frame = CGRectMake(0, 0, width, itemHeight);
     self.webView.frame = CGRectMake(0, CGRectGetMaxY(self.textField.frame), width, browserHeight);
     
-    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
+//    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
     
 #pragma mark - UITextFieldDelegate
 }

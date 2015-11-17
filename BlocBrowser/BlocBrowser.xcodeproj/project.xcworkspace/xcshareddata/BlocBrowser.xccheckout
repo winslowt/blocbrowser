@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>AEF9D95C-B5C6-4857-B45F-7BDCAD07D6E9</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>BlocBrowser</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>FDA2FE62BC47953A4EF81913286E3251E242009F</key>
 		<string>github.com:winslowt/blocbrowser.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BlocBrowser/BlocBrowser.xcodeproj/project.xcworkspace</string>
+	<string>BlocBrowser/BlocBrowser.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>FDA2FE62BC47953A4EF81913286E3251E242009F</key>
