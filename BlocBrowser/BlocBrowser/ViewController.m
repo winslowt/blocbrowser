@@ -40,17 +40,13 @@
 
 
 - (void) resetWebView {
-    [self.webView removeFromSuperview];
     
-    WKWebView *newWebView = [[WKWebView alloc] init];
-    newWebView.navigationDelegate = self;
-    [self.view addSubview:newWebView];
-    
-    self.webView = newWebView;
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
     
     
-    self.textField.text = nil;
-    [self updateButtonsAndTitle];
+    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
+    // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)loadView {
@@ -86,6 +82,8 @@
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
     
+    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 - (void) viewWillLayoutSubviews {
@@ -101,7 +99,7 @@
     self.textField.frame = CGRectMake(0, 0, width, itemHeight);
     self.webView.frame = CGRectMake(0, CGRectGetMaxY(self.textField.frame), width, browserHeight);
     
-    self.awesomeToolbar.frame = CGRectMake(20, 100, 280, 60);
+    
     
 #pragma mark - UITextFieldDelegate
 }
@@ -193,7 +191,7 @@
 #pragma mark - AwesomeFloatingToolbarDelegate
 
 - (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didSelectButtonWithTitle:(NSString *)title {
- 
+    
     if ([title isEqual:NSLocalizedString(@"Back", @"Back command")]) {
         [self.webView goBack];
     } else if ([title isEqual:NSLocalizedString(@"Forward", @"Forward command")]) {
@@ -207,5 +205,24 @@
     [self.awesomeToolbar setEnabled:[self.webView canGoForward] forButtonWithTitle:kWebBrowserForwardString];
     [self.awesomeToolbar setEnabled:[self.webView isLoading] forButtonWithTitle:kWebBrowserStopString];
     [self.awesomeToolbar setEnabled:![self.webView isLoading] && self.webView.URL forButtonWithTitle:kWebBrowserRefreshString];
+}
+
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset {
+    CGPoint startingPoint = toolbar.frame.origin;
+    CGPoint newPoint = CGPointMake(startingPoint.x + offset.x, startingPoint.y + offset.y);
+    
+    CGRect potentialNewFrame = CGRectMake(newPoint.x, newPoint.y, CGRectGetWidth(toolbar.frame), CGRectGetHeight(toolbar.frame));
+    
+    if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+        toolbar.frame = potentialNewFrame;
+    }
+}
+
+- (void) floatingToolbar:(AwesomeFloatingToolbar *)toolbar didPinchWithScale:(CGFloat)scale {
+    CGRect potentialNewFrame = CGRectMake(toolbar.frame.origin.x, toolbar.frame.origin.y, toolbar.frame.size.width * scale, toolbar.frame.size.height * scale);
+    
+    if (CGRectContainsRect(self.view.bounds, potentialNewFrame)) {
+        toolbar.frame = potentialNewFrame;
+    }
 }
 @end
